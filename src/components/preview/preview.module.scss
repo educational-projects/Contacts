@@ -1,7 +1,7 @@
 .preview {
     display: flex;
     align-items: center;
-    background: linear-gradient(to right bottom,rgba(58 240 20 / 50%),rgb(36 105 108 / 23%)),url(../../assets/preview-bg.jpg);
+    background: linear-gradient(to right bottom,rgba(58,240,20,.5),rgba(36,105,108,.23)),url(../../assets/preview-bg.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: 50% 50%;
