@@ -1,0 +1,20 @@
+.entranceWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin: 0 17px 0 0;
+    width: 30px;
+    height: 30px;
+}
+
+.link {
+    transition: transform 0.3s, color 0.3s;
+
+    &:hover {
+        color: #d80000;
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}

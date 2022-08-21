@@ -9,6 +9,8 @@ export function UserLink():JSX.Element {
         <div className={styles.avatarWrapper}>
           <img
             className={styles.avatar}
+            width="30px"
+            height="30px"
             src="https://8.react.pages.academy/static/avatar/4.jpg"
             alt="Фотография пользователя"
           />
