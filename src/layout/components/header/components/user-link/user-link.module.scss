@@ -1,0 +1,30 @@
+.userLink {
+    display: flex;
+    align-items: center;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 0;
+}
+
+.avatarWrapper {
+    margin-right: 17px;
+    width: 30px;
+    height: 30px;
+}
+
+.avatar {
+    border-radius: 20px;
+}
+
+.link {
+    transition: transform 0.3s, color 0.3s;
+
+    &:hover {
+        color: #d80000;
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
