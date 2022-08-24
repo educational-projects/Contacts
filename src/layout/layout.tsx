@@ -8,7 +8,7 @@ function Layout(): JSX.Element {
   return (
     <div className={styles.wrapper}>
       <Header />
-      <main>
+      <main className={styles.main}>
         <Outlet />
       </main>
       <Footer />

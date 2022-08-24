@@ -1,0 +1,56 @@
+.loginWrapper {
+    width: 400px;
+    padding: 50px 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgb(0 0 0 / 52%);
+    background-color: rgb(142 140 140 / 70%);
+}
+
+.title {
+    margin-bottom: 25px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input {
+    font-size: 20px;
+    width: 100%;
+    outline: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    background: rgba(64, 62, 62, 0.7);
+
+    &::placeholder {
+        color: #ffffff;
+        opacity: 0.85;
+    }
+}
+
+.formButton {
+    font-family: "Gilroy";
+    line-height: 24px;
+    font-size: 20px;
+    background-color: #24c403;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #ffffff;
+    transition: transform 0.3s, color 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+}
+
+.registrationLink {
+    font-weight: 700;
+    color: red;
+}
