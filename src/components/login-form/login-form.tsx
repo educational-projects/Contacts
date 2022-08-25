@@ -13,8 +13,8 @@ export function LoginForm(): JSX.Element {
         <input className={styles.input} type="email" id="email" placeholder="Электронная почта" />
       </div>
       <div>
-        <label className="visually-hidden" htmlFor="email">Пароль</label>
-        <input className={styles.input} type="password" id="email" placeholder="Пароль" />
+        <label className="visually-hidden" htmlFor="password">Пароль</label>
+        <input className={styles.input} type="password" id="password" placeholder="Пароль" />
       </div>
       <button type="submit" className={styles.formButton}>Войти</button>
     </form>
