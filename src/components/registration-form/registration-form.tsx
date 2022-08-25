@@ -1,15 +1,15 @@
 import React from 'react';
-import { LoginFormType } from './const';
-import styles from './login-form.module.scss';
+import { RegistrationFormType } from './const';
+import styles from './registration-form.module.scss';
 
-export function LoginForm(): JSX.Element {
+export function RegistrationForm(): JSX.Element {
   return (
     <form
       className={styles.form}
       action="#"
       method="post"
     >
-      {Object.values(LoginFormType).map(({
+      {Object.values(RegistrationFormType).map(({
         label, id, type, placeholder,
       }) => (
         <div>
