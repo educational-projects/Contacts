@@ -10,7 +10,10 @@ export function Navigation(): JSX.Element {
     <nav>
       <ul className={styles.list}>
         {Object.values(MenuType).map(({ title, link }) => (
-          <li className={styles.listItem}>
+          <li
+            key={title}
+            className={styles.listItem}
+          >
             <NavLink
               className={setActiveLink}
               to={link}
