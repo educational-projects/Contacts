@@ -12,7 +12,7 @@ export function RegistrationForm(): JSX.Element {
       {Object.values(RegistrationFormType).map(({
         label, id, type, placeholder,
       }) => (
-        <div>
+        <div key={id}>
           <label className="visually-hidden" htmlFor={id}>{label}</label>
           <input className={styles.input} type={type} id={id} placeholder={placeholder} />
         </div>
