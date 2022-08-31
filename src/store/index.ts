@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import userReducer from './user/user';
+import contactsReducer from './contacts/contacts';
 
 const api = createAPI();
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    contacts: contactsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: {

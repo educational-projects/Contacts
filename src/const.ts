@@ -4,3 +4,7 @@ export enum AppRoute {
     Login = '/login',
     Registration = '/registration'
 }
+
+export enum APIRoute {
+    Contact = 'http://localhost:3001/contacts'
+}
