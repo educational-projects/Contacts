@@ -1,0 +1,48 @@
+.userItem {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.userContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfo {
+    display: flex;
+}
+
+.userName {
+    margin-right: 30px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    background: none;
+    cursor: pointer;
+
+    &:last-child {
+        margin: 0;
+    }
+}
+
+.userTel {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.phoneIcon {
+    width: 15px;
+    height: 15px;
+    margin-right: 20px;
+}

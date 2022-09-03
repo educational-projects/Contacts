@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { PrivateRoute } from '../../hoc/private-route/private-route';
 import Layout from '../../layout/layout';
-import Contacts from '../../pages/contacts/contacts';
+import ContactsPage from '../../pages/contacts/contacts';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Registration from '../../pages/registration/registration';
@@ -19,7 +19,7 @@ export function App(): JSX.Element {
             path={AppRoute.Contacts}
             element={(
               <PrivateRoute>
-                <Contacts />
+                <ContactsPage />
               </PrivateRoute>
           )}
           />

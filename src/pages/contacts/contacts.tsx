@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { Contacts } from '../../components';
 import { useAppDispatch } from '../../hook';
 import { fetchContacts } from '../../store/contacts/contacts';
 
-function Contacts(): JSX.Element {
+function ContactsPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   // Запрос контактов
@@ -11,8 +12,8 @@ function Contacts(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <h1>Контакты</h1>
+    <Contacts />
   );
 }
 
-export default Contacts;
+export default ContactsPage;
