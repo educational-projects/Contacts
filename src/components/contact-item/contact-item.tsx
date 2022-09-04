@@ -5,7 +5,11 @@ import { ReactComponent as EditIcon } from './Edit.svg';
 import { ReactComponent as AddIcon } from './Add.svg';
 import { ReactComponent as PhoneIcon } from './Phone.svg';
 
-export function ContactItem(): JSX.Element {
+interface ContactItemProps {
+  onClick: () => void
+}
+
+export function ContactItem({ onClick }: ContactItemProps): JSX.Element {
   return (
     <li className={styles.userItem}>
       <div className={styles.userContent}>
@@ -18,6 +22,7 @@ export function ContactItem(): JSX.Element {
             type="button"
             className={styles.button}
             aria-label="Добавить контакт"
+            onClick={() => onClick()}
           >
             <AddIcon width="30px" height="30px" />
           </button>
