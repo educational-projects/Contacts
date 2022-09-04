@@ -4,18 +4,23 @@ import { ReactComponent as DeleteIcon } from './Delete.svg';
 import { ReactComponent as EditIcon } from './Edit.svg';
 import { ReactComponent as AddIcon } from './Add.svg';
 import { ReactComponent as PhoneIcon } from './Phone.svg';
+import { Contact } from '../../types/contact';
 
 interface ContactItemProps {
+  contact: Contact;
   onClick: () => void
 }
 
-export function ContactItem({ onClick }: ContactItemProps): JSX.Element {
+export function ContactItem({ contact, onClick }: ContactItemProps): JSX.Element {
+  const {
+    name, company, phone,
+  } = contact;
   return (
     <li className={styles.userItem}>
       <div className={styles.userContent}>
         <div className={styles.userInfo}>
-          <p className={styles.userName}>Дмитрий Тихонов</p>
-          <p>Ситилинк</p>
+          <p className={styles.userName}>{name}</p>
+          <p>{company}</p>
         </div>
         <div className={styles.buttons}>
           <button
@@ -44,14 +49,14 @@ export function ContactItem({ onClick }: ContactItemProps): JSX.Element {
       </div>
       <a
         className={styles.userTel}
-        href="tel:89535346291"
+        href={`tel:${phone}`}
       >
         <PhoneIcon
           className={styles.phoneIcon}
           width="15px"
           height="15px"
         />
-        89535346291
+        {phone}
       </a>
     </li>
   );

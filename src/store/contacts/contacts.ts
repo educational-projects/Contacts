@@ -2,14 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, RootState } from '..';
 import { AppRoute } from '../../const';
-
-interface Contact {
-  id: number;
-  name: string;
-  city: string;
-  phone: string;
-  company: string;
-}
+import { Contact } from '../../types/contact';
 
 interface ContactsState {
   contacts: Contact[];
