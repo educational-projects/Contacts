@@ -7,3 +7,4 @@ export * from './registration-form/registration-form';
 export * from './contacts/contacts';
 export * from './contact-item/contact-item';
 export * from './modal/modal';
+export * from './add-contact/add-contact';

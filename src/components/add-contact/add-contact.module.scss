@@ -1,0 +1,44 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.formInput {
+    font-size: 20px;
+    width: 100%;
+    outline: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    background: rgba(131, 126, 126, 0.7);
+
+    &::placeholder {
+        opacity: 0.85;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    font-family: "Gilroy";
+    line-height: 24px;
+    font-size: 20px;
+    color: #ffffff;
+    background: none;
+    padding: 10px 30px;
+    background-color: green;
+    border-radius: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+
+    &:last-child {
+        margin: 0px;
+    }
+}

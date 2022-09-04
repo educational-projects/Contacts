@@ -5,9 +5,17 @@
 }
 
 .title {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .contactsList {
     padding-top: 50px;
+}
+
+.newContact {
+    background: none;
+    width: 30px;
+    height: 30px;
 }
