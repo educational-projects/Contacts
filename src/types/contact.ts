@@ -4,3 +4,9 @@ export interface Contact {
   phone: string;
   company: string;
 }
+
+export interface NewContact {
+  name: string;
+  phone: string;
+  company: string;
+}

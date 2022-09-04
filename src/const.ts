@@ -6,5 +6,5 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-    Contact = 'http://localhost:3001/contacts'
+    Contacts = 'http://localhost:3001/contacts'
 }

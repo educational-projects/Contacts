@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, RootState } from '..';
-import { AppRoute } from '../../const';
-import { Contact } from '../../types/contact';
+import { APIRoute, AppRoute } from '../../const';
+import { Contact, NewContact } from '../../types/contact';
 
 interface ContactsState {
   contacts: Contact[];
@@ -12,12 +12,12 @@ interface ContactsState {
 
 export const fetchContacts = createAsyncThunk<
 Contact[],
- undefined,
-  {
-    dispatch: AppDispatch;
-    state: RootState;
-    extra: AxiosInstance;
-  }
+undefined,
+{
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}
   >(
     'contacts/fetchContacts',
     async (_, { dispatch, extra: api }) => {
@@ -31,6 +31,37 @@ Contact[],
       }
     },
   );
+
+export const sendNewContact = createAsyncThunk<
+  NewContact,
+  NewContact,
+  {
+    dispatch: AppDispatch;
+    state: RootState;
+    extra: AxiosInstance;
+  }
+>(
+  'data/sendNewContact',
+  async (
+    {
+      name, company, phone,
+    }: NewContact,
+    { dispatch, extra: api },
+  ) => {
+    try {
+      const { data } = await api.post<Contact>(APIRoute.Contacts, {
+        name,
+        company,
+        phone,
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+);
 
 const initialState: ContactsState = {
   contacts: [],
