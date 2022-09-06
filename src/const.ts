@@ -8,3 +8,7 @@ export enum AppRoute {
 export enum APIRoute {
     Contacts = 'http://localhost:3001/contacts'
 }
+
+export enum ErrorMessage {
+    NewContactError = 'Не удалось добавить контакт, попробуйте еще раз',
+}

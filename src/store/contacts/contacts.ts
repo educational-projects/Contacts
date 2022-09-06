@@ -1,42 +1,41 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, RootState } from '..';
-import { APIRoute, AppRoute } from '../../const';
+import { toast } from 'react-toastify';
+import { RootState } from '..';
+import { APIRoute, ErrorMessage } from '../../const';
 import { Contact, NewContact } from '../../types/contact';
 
 interface ContactsState {
   contacts: Contact[];
-  isLoading: boolean;
-  isError: boolean;
+  isContactsLoading: boolean;
+  isContactsError: boolean;
+  isSendContactLoading: boolean;
+  isSendContactError: boolean;
+}
+
+interface sendNewContact extends NewContact {
+  callback: () => void;
 }
 
 export const fetchContacts = createAsyncThunk<
 Contact[],
 undefined,
 {
-  dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }
   >(
     'contacts/fetchContacts',
-    async (_, { dispatch, extra: api }) => {
-      try {
-        const { data } = await api.get<Contact[]>(AppRoute.Contacts);
-
-        return data;
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+    async (_, { extra: api }) => {
+      const { data } = await api.get<Contact[]>(APIRoute.Contacts);
+      return data;
     },
   );
 
 export const sendNewContact = createAsyncThunk<
-  NewContact,
-  NewContact,
+  Contact,
+  sendNewContact,
   {
-    dispatch: AppDispatch;
     state: RootState;
     extra: AxiosInstance;
   }
@@ -44,9 +43,9 @@ export const sendNewContact = createAsyncThunk<
   'data/sendNewContact',
   async (
     {
-      name, company, phone,
-    }: NewContact,
-    { dispatch, extra: api },
+      name, company, phone, callback,
+    }: sendNewContact,
+    { extra: api },
   ) => {
     try {
       const { data } = await api.post<Contact>(APIRoute.Contacts, {
@@ -55,9 +54,11 @@ export const sendNewContact = createAsyncThunk<
         phone,
       });
 
+      callback();
+
       return data;
     } catch (error) {
-      console.log(error);
+      toast.error(ErrorMessage.NewContactError);
       throw error;
     }
   },
@@ -65,8 +66,10 @@ export const sendNewContact = createAsyncThunk<
 
 const initialState: ContactsState = {
   contacts: [],
-  isLoading: false,
-  isError: false,
+  isContactsLoading: false,
+  isContactsError: false,
+  isSendContactLoading: false,
+  isSendContactError: false,
 };
 
 const contactsSlice = createSlice({
@@ -76,16 +79,27 @@ const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
+        state.isContactsLoading = true;
+        state.isContactsError = false;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isContactsLoading = false;
         state.contacts = action.payload;
       })
       .addCase(fetchContacts.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
+        state.isContactsLoading = false;
+        state.isContactsError = true;
+      })
+      .addCase(sendNewContact.pending, (state) => {
+        state.isSendContactLoading = true;
+        state.isSendContactError = false;
+      })
+      .addCase(sendNewContact.fulfilled, (state, action) => {
+        state.isSendContactLoading = false;
+        state.contacts.push(action.payload);
+      })
+      .addCase(sendNewContact.rejected, (state) => {
+        state.isSendContactError = true;
       });
   },
 });

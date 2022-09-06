@@ -1,4 +1,5 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { useAppDispatch } from '../../hook';
 import { sendNewContact } from '../../store/contacts/contacts';
 import styles from './add-contact.module.scss';
@@ -29,9 +30,10 @@ export function AddContact({ onClose }: AddContactProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    console.log('forma otpravlena');
-    dispatch(sendNewContact(formState));
+
+    dispatch(sendNewContact({ ...formState, callback: onClose }));
   };
+
   return (
     <form className={styles.form} action="#" method="post" onSubmit={handleSubmit}>
       <h2 className={styles.title}>Добавить новый контакт</h2>

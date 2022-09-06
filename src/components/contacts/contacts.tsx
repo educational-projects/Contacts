@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './contacts.module.scss';
 import { ContactItem, Modal, AddContact } from '..';
-import { useAppSelector } from '../../hook';
+import { useAppDispatch, useAppSelector } from '../../hook';
 import { ReactComponent as AddIcon } from './Add.svg';
+import { fetchContacts } from '../../store/contacts/contacts';
 
 export function Contacts():JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [openModal, setOpenModal] = useState(false);
   const contacts = useAppSelector((state) => state.contacts.contacts);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <section className={styles.contacts}>
       <div className="container">
