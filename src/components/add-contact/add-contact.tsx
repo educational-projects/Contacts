@@ -1,5 +1,4 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useAppDispatch } from '../../hook';
 import { sendNewContact } from '../../store/contacts/contacts';
 import styles from './add-contact.module.scss';
