@@ -12,10 +12,10 @@ interface ContactItemProps {
 
 export function ContactItem({ contact }: ContactItemProps): JSX.Element {
   const [deleteModal, setDeleteModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  // const [editModal, setEditModal] = useState(false);
 
   const {
-    name, company, phone,
+    name, company, phone, id,
   } = contact;
   return (
     <>
@@ -61,7 +61,10 @@ export function ContactItem({ contact }: ContactItemProps): JSX.Element {
 
       {deleteModal && (
       <Modal onClose={() => setDeleteModal(false)}>
-        <DeleteModal onClose={() => setDeleteModal(false)} />
+        <DeleteModal
+          currentId={id}
+          onClose={() => setDeleteModal(false)}
+        />
       </Modal>
       )}
     </>

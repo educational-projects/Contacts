@@ -11,9 +11,16 @@ interface ContactsState {
   isContactsError: boolean;
   isSendContactLoading: boolean;
   isSendContactError: boolean;
+  isDeleteContactLoading: boolean;
+  isDeleteContactError: boolean;
 }
 
 interface sendNewContact extends NewContact {
+  callback: () => void;
+}
+
+interface DeleteContactProps {
+  id: number;
   callback: () => void;
 }
 
@@ -64,12 +71,42 @@ export const sendNewContact = createAsyncThunk<
   },
 );
 
+export const deleteContact = createAsyncThunk<
+  number,
+  DeleteContactProps,
+  {
+    state: RootState;
+    extra: AxiosInstance;
+  }
+>(
+  'data/deleteContact',
+  async (
+    {
+      id,
+      callback,
+    }: DeleteContactProps,
+    { extra: api },
+  ) => {
+    try {
+      await api.delete(`${APIRoute.Contacts}/${id}`);
+      callback();
+
+      return id;
+    } catch (error) {
+      toast.error(ErrorMessage.DeleteContactError);
+      throw error;
+    }
+  },
+);
+
 const initialState: ContactsState = {
   contacts: [],
   isContactsLoading: false,
   isContactsError: false,
   isSendContactLoading: false,
   isSendContactError: false,
+  isDeleteContactLoading: false,
+  isDeleteContactError: false,
 };
 
 const contactsSlice = createSlice({
@@ -100,6 +137,18 @@ const contactsSlice = createSlice({
       })
       .addCase(sendNewContact.rejected, (state) => {
         state.isSendContactError = true;
+      })
+      .addCase(deleteContact.pending, (state) => {
+        state.isDeleteContactLoading = true;
+        state.isDeleteContactError = false;
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.isDeleteContactLoading = false;
+        state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
+      })
+      .addCase(deleteContact.rejected, (state) => {
+        state.isDeleteContactLoading = false;
+        state.isDeleteContactError = true;
       });
   },
 });

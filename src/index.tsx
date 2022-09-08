@@ -18,7 +18,6 @@ root.render(
       <ToastContainer />
       <App />
     </Provider>
-    ,
   </React.StrictMode>,
 );
 
