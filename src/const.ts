@@ -11,5 +11,6 @@ export enum APIRoute {
 
 export enum ErrorMessage {
     NewContactError = 'Не удалось добавить контакт, попробуйте еще раз',
-    DeleteContactError = 'Не удалось удалить контакт, попробуйте еще раз'
+    DeleteContactError = 'Не удалось удалить контакт, попробуйте еще раз',
+    UpdateContactError = 'Не удалось обновить данные контакта, попробуйте еще раз'
 }

@@ -1,6 +1,6 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
 import { useAppDispatch } from '../../hook';
-import { sendNewContact } from '../../store/contacts/contacts';
+import { UpdateContact } from '../../store/contacts/contacts';
 import { Contact } from '../../types/contact';
 import styles from './edit-contact.module.scss';
 
@@ -16,6 +16,7 @@ export function EditContact({ onClose, contact }: EditContactProps): JSX.Element
     name: contact.name,
     company: contact.company,
     phone: contact.phone,
+    id: contact.id,
   });
 
   const handleChangeForm = ({ target }: ChangeEvent<HTMLInputElement>): void => {
@@ -30,7 +31,7 @@ export function EditContact({ onClose, contact }: EditContactProps): JSX.Element
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 
-    dispatch(sendNewContact({ ...formState, callback: onClose }));
+    dispatch(UpdateContact({ ...formState, callback: onClose }));
   };
 
   return (

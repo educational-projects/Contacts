@@ -13,9 +13,15 @@ interface ContactsState {
   isSendContactError: boolean;
   isDeleteContactLoading: boolean;
   isDeleteContactError: boolean;
+  isUpdateContactLoading: boolean;
+  isUpdateContactError: boolean;
 }
 
 interface sendNewContact extends NewContact {
+  callback: () => void;
+}
+
+interface UpdateContact extends Contact {
   callback: () => void;
 }
 
@@ -99,6 +105,39 @@ export const deleteContact = createAsyncThunk<
   },
 );
 
+export const UpdateContact = createAsyncThunk<
+  Contact,
+  UpdateContact,
+  {
+    state: RootState;
+    extra: AxiosInstance;
+  }
+>(
+  'data/UpdateContact',
+  async (
+    {
+      name, company, phone, id, callback,
+    }: UpdateContact,
+    { extra: api },
+  ) => {
+    try {
+      const { data } = await api.put<Contact>(`${APIRoute.Contacts}/${id}`, {
+        name,
+        company,
+        phone,
+        id,
+      });
+
+      callback();
+
+      return data;
+    } catch (error) {
+      toast.error(ErrorMessage.UpdateContactError);
+      throw error;
+    }
+  },
+);
+
 const initialState: ContactsState = {
   contacts: [],
   isContactsLoading: false,
@@ -107,6 +146,8 @@ const initialState: ContactsState = {
   isSendContactError: false,
   isDeleteContactLoading: false,
   isDeleteContactError: false,
+  isUpdateContactLoading: false,
+  isUpdateContactError: false,
 };
 
 const contactsSlice = createSlice({
@@ -149,6 +190,22 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.rejected, (state) => {
         state.isDeleteContactLoading = false;
         state.isDeleteContactError = true;
+      })
+      .addCase(UpdateContact.pending, (state) => {
+        state.isUpdateContactLoading = true;
+        state.isUpdateContactError = false;
+      })
+      .addCase(UpdateContact.fulfilled, (state, action) => {
+        const currentContact = state.contacts.findIndex(
+          (contact) => contact.id === action.payload.id,
+        );
+
+        state.contacts[currentContact] = action.payload;
+        state.isUpdateContactLoading = false;
+      })
+      .addCase(UpdateContact.rejected, (state) => {
+        state.isUpdateContactLoading = false;
+        state.isUpdateContactError = true;
       });
   },
 });
