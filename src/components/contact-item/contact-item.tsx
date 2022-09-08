@@ -31,7 +31,11 @@ export function ContactItem({ contact }: ContactItemProps): JSX.Element {
               type="button"
               aria-label="Редактировать контакт"
             >
-              <EditIcon width="30px" height="30px" />
+              <EditIcon
+                width="30px"
+                height="30px"
+                onClick={() => setEditModal(true)}
+              />
             </button>
             <button
               type="button"
@@ -70,10 +74,7 @@ export function ContactItem({ contact }: ContactItemProps): JSX.Element {
 
       {editModal && (
       <Modal onClose={() => setEditModal(false)}>
-        <AddContact
-          type="edit"
-          onClose={() => setEditModal(false)}
-        />
+        <AddContact onClose={() => setEditModal(false)} />
       </Modal>
       )}
     </>
