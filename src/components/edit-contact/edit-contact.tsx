@@ -1,22 +1,22 @@
 import React, { FormEvent, ChangeEvent, useState } from 'react';
 import { useAppDispatch } from '../../hook';
 import { sendNewContact } from '../../store/contacts/contacts';
-import styles from './add-contact.module.scss';
+import { Contact } from '../../types/contact';
+import styles from './edit-contact.module.scss';
 
-interface AddContactProps {
+interface EditContactProps {
+  contact: Contact;
   onClose: () => void;
 }
 
-const initialState = {
-  name: '',
-  company: '',
-  phone: '',
-};
-
-export function AddContact({ onClose }: AddContactProps): JSX.Element {
+export function EditContact({ onClose, contact }: EditContactProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const [formState, setFormState] = useState(initialState);
+  const [formState, setFormState] = useState({
+    name: contact.name,
+    company: contact.company,
+    phone: contact.phone,
+  });
 
   const handleChangeForm = ({ target }: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = target;
@@ -35,7 +35,7 @@ export function AddContact({ onClose }: AddContactProps): JSX.Element {
 
   return (
     <form className={styles.form} action="#" method="post" onSubmit={handleSubmit}>
-      <h2 className={styles.title}>Добавить новый контакт</h2>
+      <h2 className={styles.title}>Редактировать контакт</h2>
       <div>
         <label className="visually-hidden" htmlFor="name">Имя</label>
         <input className={styles.formInput} type="text" id="name" name="name" placeholder="Имя" onChange={handleChangeForm} value={formState.name} />
@@ -49,7 +49,7 @@ export function AddContact({ onClose }: AddContactProps): JSX.Element {
         <input className={styles.formInput} type="tel" id="phone" name="phone" placeholder="Телефон" onChange={handleChangeForm} value={formState.phone} />
       </div>
       <div className={styles.buttons}>
-        <button className={styles.button} type="submit">Добавить</button>
+        <button className={styles.button} type="submit">Подтвердить</button>
         <button className={styles.button} type="button" onClick={onClose}>Отменить</button>
       </div>
     </form>

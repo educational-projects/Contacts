@@ -4,7 +4,7 @@ import { ReactComponent as DeleteIcon } from './Delete.svg';
 import { ReactComponent as EditIcon } from './Edit.svg';
 import { ReactComponent as PhoneIcon } from './Phone.svg';
 import { Contact } from '../../types/contact';
-import { Modal, DeleteContact, AddContact } from '..';
+import { Modal, DeleteContact, EditContact } from '..';
 
 interface ContactItemProps {
   contact: Contact;
@@ -74,7 +74,10 @@ export function ContactItem({ contact }: ContactItemProps): JSX.Element {
 
       {editModal && (
       <Modal onClose={() => setEditModal(false)}>
-        <AddContact onClose={() => setEditModal(false)} />
+        <EditContact
+          contact={contact}
+          onClose={() => setEditModal(false)}
+        />
       </Modal>
       )}
     </>
