@@ -4,7 +4,7 @@ import { deleteContact } from '../../store/contacts/contacts';
 import styles from './delete-contact.module.scss';
 import { DeleteContactProps } from './delete-contact.props';
 
-export function DeleteModal({ onClose, currentId }: DeleteContactProps): JSX.Element {
+export function DeleteContact({ onClose, currentId }: DeleteContactProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

@@ -4,7 +4,7 @@ import { ReactComponent as DeleteIcon } from './Delete.svg';
 import { ReactComponent as EditIcon } from './Edit.svg';
 import { ReactComponent as PhoneIcon } from './Phone.svg';
 import { Contact } from '../../types/contact';
-import { Modal, DeleteModal } from '..';
+import { Modal, DeleteContact, AddContact } from '..';
 
 interface ContactItemProps {
   contact: Contact;
@@ -12,7 +12,7 @@ interface ContactItemProps {
 
 export function ContactItem({ contact }: ContactItemProps): JSX.Element {
   const [deleteModal, setDeleteModal] = useState(false);
-  // const [editModal, setEditModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   const {
     name, company, phone, id,
@@ -61,9 +61,18 @@ export function ContactItem({ contact }: ContactItemProps): JSX.Element {
 
       {deleteModal && (
       <Modal onClose={() => setDeleteModal(false)}>
-        <DeleteModal
+        <DeleteContact
           currentId={id}
           onClose={() => setDeleteModal(false)}
+        />
+      </Modal>
+      )}
+
+      {editModal && (
+      <Modal onClose={() => setEditModal(false)}>
+        <AddContact
+          type="edit"
+          onClose={() => setEditModal(false)}
         />
       </Modal>
       )}

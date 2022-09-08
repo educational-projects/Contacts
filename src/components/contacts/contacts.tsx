@@ -41,7 +41,10 @@ export function Contacts():JSX.Element {
       </div>
       {openModal && (
       <Modal onClose={() => setOpenModal(false)}>
-        <AddContact onClose={() => setOpenModal(false)} />
+        <AddContact
+          type="add"
+          onClose={() => setOpenModal(false)}
+        />
       </Modal>
       )}
     </section>

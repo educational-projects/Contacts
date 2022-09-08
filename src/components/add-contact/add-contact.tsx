@@ -4,6 +4,7 @@ import { sendNewContact } from '../../store/contacts/contacts';
 import styles from './add-contact.module.scss';
 
 interface AddContactProps {
+  type: 'add' | 'edit';
   onClose: () => void;
 }
 
@@ -13,7 +14,7 @@ const initialState = {
   phone: '',
 };
 
-export function AddContact({ onClose }: AddContactProps): JSX.Element {
+export function AddContact({ onClose, type = 'add' }: AddContactProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [formState, setFormState] = useState(initialState);
@@ -33,9 +34,12 @@ export function AddContact({ onClose }: AddContactProps): JSX.Element {
     dispatch(sendNewContact({ ...formState, callback: onClose }));
   };
 
+  const title = type === 'add' ? 'Добавить новый контакт' : 'Редактировать контакт';
+  const button = type === 'add' ? 'Добавить' : 'Подтвердить';
+
   return (
     <form className={styles.form} action="#" method="post" onSubmit={handleSubmit}>
-      <h2 className={styles.title}>Добавить новый контакт</h2>
+      <h2 className={styles.title}>{title}</h2>
       <div>
         <label className="visually-hidden" htmlFor="name">Имя</label>
         <input className={styles.formInput} type="text" id="name" name="name" placeholder="Имя" onChange={handleChangeForm} value={formState.name} />
@@ -49,7 +53,7 @@ export function AddContact({ onClose }: AddContactProps): JSX.Element {
         <input className={styles.formInput} type="tel" id="phone" name="phone" placeholder="Телефон" onChange={handleChangeForm} />
       </div>
       <div className={styles.buttons}>
-        <button className={styles.button} type="submit">Добавить</button>
+        <button className={styles.button} type="submit">{button}</button>
         <button className={styles.button} type="button" onClick={onClose}>Отменить</button>
       </div>
     </form>
