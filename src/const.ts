@@ -6,7 +6,9 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-    Contacts = 'http://localhost:3001/contacts'
+    Contacts = '/contacts',
+    Authorization = '/login',
+    Registration = '/register'
 }
 
 export enum ErrorMessage {

@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
+import { useAppDispatch } from '../../hook';
+import { registerAction } from '../../store/user/user';
 import { RegistrationFormType } from './const';
 import styles from './registration-form.module.scss';
 
 export function RegistrationForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+
+    dispatch(registerAction({ name: 'Алла', email: 'admin@yandex.ru', password: '12345' }));
+  };
+
   return (
     <form
       className={styles.form}
       action="#"
       method="post"
+      onSubmit={handleSubmit}
     >
       {Object.values(RegistrationFormType).map(({
         label, id, type, placeholder,

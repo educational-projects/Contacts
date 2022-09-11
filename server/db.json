@@ -31,5 +31,12 @@
       "id": 5
     }
   ],
-  "login": []
+  "users": [
+    {
+      "email": "admin@yandex.ru",
+      "password": "$2a$10$NMsf7a18nv1hGaU3YKPjausU3/nYKUZ2jQLbxYibrlIoQbzw3jKmG",
+      "name": "Алла",
+      "id": 1
+    }
+  ]
 }
