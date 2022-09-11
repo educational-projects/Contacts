@@ -16,3 +16,9 @@ export enum ErrorMessage {
     DeleteContactError = 'Не удалось удалить контакт, попробуйте еще раз',
     UpdateContactError = 'Не удалось обновить данные контакта, попробуйте еще раз'
 }
+
+export enum AuthorizationStatus {
+    Auth = 'AUTH',
+    NoAuth = 'NO_AUTH',
+    Unknown = 'UNKNOWN'
+  }

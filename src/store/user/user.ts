@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { saveToken } from '../../services/token';
 import { RootState } from '..';
-import { APIRoute, ErrorMessage } from '../../const';
+import { APIRoute, AuthorizationStatus, ErrorMessage } from '../../const';
 
 interface User {
   name?: string;
@@ -18,12 +18,14 @@ interface BackUser {
 
 interface UserState {
   user: User | null;
+  authorizationStatus: AuthorizationStatus;
   isLoading: boolean;
   isError: boolean;
 }
 
 const initialState: UserState = {
   user: null,
+  authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
   isError: false,
 };
@@ -104,6 +106,7 @@ const userSlice = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+        state.authorizationStatus = AuthorizationStatus.Auth;
       });
   },
 });

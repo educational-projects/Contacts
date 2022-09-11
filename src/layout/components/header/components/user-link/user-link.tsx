@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../../../hook';
 import styles from './user-link.module.scss';
 
 export function UserLink():JSX.Element {
+  const user = useAppSelector((state) => state.user.user);
+
   return (
     <div className={styles.userLink}>
       <div className={styles.user}>
@@ -19,7 +22,7 @@ export function UserLink():JSX.Element {
           className={styles.link}
           to="/#"
         >
-          limestormrage@yandex.ru
+          {user?.name}
         </Link>
       </div>
       <Link
