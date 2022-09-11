@@ -8,13 +8,15 @@ export enum AppRoute {
 export enum APIRoute {
     Contacts = '/contacts',
     Authorization = '/login',
-    Registration = '/register'
+    Registration = '/register',
 }
 
 export enum ErrorMessage {
     NewContactError = 'Не удалось добавить контакт, попробуйте еще раз',
     DeleteContactError = 'Не удалось удалить контакт, попробуйте еще раз',
-    UpdateContactError = 'Не удалось обновить данные контакта, попробуйте еще раз'
+    UpdateContactError = 'Не удалось обновить данные контакта, попробуйте еще раз',
+    LoginError = 'не удалось авторизоваться',
+    LogoutError = 'не удалось совершить выход'
 }
 
 export enum AuthorizationStatus {

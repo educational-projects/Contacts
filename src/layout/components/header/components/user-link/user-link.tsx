@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../../../hook';
+import { AppRoute } from '../../../../../const';
+import { useAppDispatch, useAppSelector } from '../../../../../hook';
+import { logout } from '../../../../../store/user/user';
 import styles from './user-link.module.scss';
 
 export function UserLink():JSX.Element {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
+
+  const handleClick = (evt: SyntheticEvent): void => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <div className={styles.userLink}>
@@ -26,8 +34,9 @@ export function UserLink():JSX.Element {
         </Link>
       </div>
       <Link
+        onClick={handleClick}
         className={styles.link}
-        to="/#"
+        to={AppRoute.Main}
       >
         Выйти
       </Link>

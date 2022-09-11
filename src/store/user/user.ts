@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
-import { saveToken } from '../../services/token';
+import { dropToken, saveToken } from '../../services/token';
 import { RootState } from '..';
 import { APIRoute, AuthorizationStatus, ErrorMessage } from '../../const';
 
@@ -56,7 +56,7 @@ export const loginAction = createAsyncThunk<
 
       return data.user;
     } catch (error) {
-      toast.error(ErrorMessage.NewContactError);
+      toast.error(ErrorMessage.LoginError);
       throw error;
     }
   },
@@ -96,6 +96,11 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    logout: (state) => {
+      dropToken();
+      state.user = null;
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -107,8 +112,14 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
+      })
+      .addCase(loginAction.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
       });
   },
 });
+
+export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;
