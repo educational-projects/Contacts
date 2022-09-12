@@ -139,6 +139,8 @@ const userSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.isLogoutLoading = false;
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.user = null;
       })
       .addCase(logoutAction.rejected, (state) => {
         state.isLogoutLoading = false;
