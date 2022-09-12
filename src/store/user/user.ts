@@ -21,6 +21,8 @@ interface UserState {
   authorizationStatus: AuthorizationStatus;
   isLoading: boolean;
   isError: boolean;
+  isLogoutLoading: boolean;
+  isLogoutError: boolean;
 }
 
 const initialState: UserState = {
@@ -28,6 +30,8 @@ const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
   isError: false,
+  isLogoutLoading: false,
+  isLogoutError: false,
 };
 
 export const loginAction = createAsyncThunk<
@@ -61,6 +65,23 @@ export const loginAction = createAsyncThunk<
     }
   },
 );
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    state: RootState;
+    extra: AxiosInstance;
+  }
+>('user/logout', async (_arg, { extra: api }) => {
+  try {
+    await api.get(APIRoute.Logout);
+    dropToken();
+  } catch (error) {
+    toast.error(ErrorMessage.LogoutError);
+    throw error;
+  }
+});
 
 export const registerAction = createAsyncThunk<
   User,
@@ -96,11 +117,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logout: (state) => {
-      dropToken();
-      state.user = null;
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -116,10 +132,19 @@ const userSlice = createSlice({
       .addCase(loginAction.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
+      })
+      .addCase(logoutAction.pending, (state) => {
+        state.isLogoutLoading = true;
+        state.isLogoutError = false;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.isLogoutLoading = false;
+      })
+      .addCase(logoutAction.rejected, (state) => {
+        state.isLogoutLoading = false;
+        state.isLogoutError = true;
       });
   },
 });
-
-export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

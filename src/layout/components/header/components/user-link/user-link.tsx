@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../../../const';
 import { useAppDispatch, useAppSelector } from '../../../../../hook';
-import { logout } from '../../../../../store/user/user';
+import { logoutAction } from '../../../../../store/user/user';
 import styles from './user-link.module.scss';
 
 export function UserLink():JSX.Element {
@@ -11,7 +11,7 @@ export function UserLink():JSX.Element {
 
   const handleClick = (evt: SyntheticEvent): void => {
     evt.preventDefault();
-    dispatch(logout());
+    dispatch(logoutAction());
   };
 
   return (

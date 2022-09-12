@@ -8,6 +8,7 @@ export enum AppRoute {
 export enum APIRoute {
     Contacts = '/contacts',
     Authorization = '/login',
+    Logout = '/logout',
     Registration = '/register',
 }
 
