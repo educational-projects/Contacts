@@ -10,3 +10,4 @@ export * from './modal/modal';
 export * from './add-contact/add-contact';
 export * from './delete-contact/delete-contact';
 export * from './edit-contact/edit-contact';
+export * from './search-form/search-form';

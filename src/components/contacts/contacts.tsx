@@ -18,8 +18,8 @@ export function Contacts():JSX.Element {
   return (
     <section className={styles.contacts}>
       <div className="container">
-        <h1 className={styles.title}>
-          Контакты
+        <h2 className={styles.title}>
+          Добавить новый контакт
           {' '}
           <button
             type="button"
@@ -29,7 +29,7 @@ export function Contacts():JSX.Element {
           >
             <AddIcon width="30px" height="30px" />
           </button>
-        </h1>
+        </h2>
         <ul className={styles.contactsList}>
           {contacts.map((contact) => (
             <ContactItem

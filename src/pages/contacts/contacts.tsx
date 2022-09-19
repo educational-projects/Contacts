@@ -1,9 +1,14 @@
 import React from 'react';
-import { Contacts } from '../../components';
+import { Contacts, SearchForm } from '../../components';
+import styles from './contacts.module.scss';
 
 function ContactsPage(): JSX.Element {
   return (
-    <Contacts />
+    <>
+      <h1 className={styles.title}>Контакты</h1>
+      <SearchForm />
+      <Contacts />
+    </>
   );
 }
 
