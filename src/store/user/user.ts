@@ -23,15 +23,19 @@ interface UserState {
   isError: boolean;
   isLogoutLoading: boolean;
   isLogoutError: boolean;
+  isRegistrationLoading: boolean;
+  isRegistrationError: boolean;
 }
 
 const initialState: UserState = {
   user: null,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.NoAuth,
   isLoading: false,
   isError: false,
   isLogoutLoading: false,
   isLogoutError: false,
+  isRegistrationLoading: false,
+  isRegistrationError: false,
 };
 
 export const loginAction = createAsyncThunk<
@@ -91,7 +95,7 @@ export const registerAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'data/authorization',
+  'data/registration',
   async (
     {
       email, password, name,
@@ -99,13 +103,16 @@ export const registerAction = createAsyncThunk<
     { extra: api },
   ) => {
     try {
-      const { data } = await api.post<User>(APIRoute.Registration, {
+      const { data } = await api.post<BackUser>(APIRoute.Registration, {
         email,
         password,
         name,
       });
 
-      return data;
+      const { accessToken } = data;
+      saveToken(accessToken);
+
+      return data.user;
     } catch (error) {
       toast.error(ErrorMessage.NewContactError);
       throw error;
@@ -145,6 +152,19 @@ const userSlice = createSlice({
       .addCase(logoutAction.rejected, (state) => {
         state.isLogoutLoading = false;
         state.isLogoutError = true;
+      })
+      .addCase(registerAction.pending, (state) => {
+        state.isRegistrationLoading = true;
+        state.isRegistrationError = false;
+      })
+      .addCase(registerAction.fulfilled, (state, action) => {
+        state.isRegistrationLoading = false;
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload;
+      })
+      .addCase(registerAction.rejected, (state) => {
+        state.isRegistrationLoading = false;
+        state.isRegistrationError = true;
       });
   },
 });

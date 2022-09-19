@@ -1,7 +1,7 @@
 export const RegistrationFormType = {
   Name: {
     label: 'Ваше имя',
-    id: 'user-name',
+    id: 'name',
     type: 'text',
     placeholder: 'Ваше имя',
   },
