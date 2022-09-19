@@ -47,7 +47,7 @@ export function LoginForm(): JSX.Element {
       }) => (
         <div key={id}>
           <label className="visually-hidden" htmlFor={id}>{label}</label>
-          <input className={styles.input} type={type} id={id} placeholder={placeholder} />
+          <input className={styles.input} type={type} id={id} placeholder={placeholder} required />
         </div>
       ))}
       <button type="submit" className={styles.formButton}>Войти</button>

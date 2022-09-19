@@ -53,6 +53,7 @@ export function RegistrationForm(): JSX.Element {
             id={id}
             onChange={handleChangeForm}
             placeholder={placeholder}
+            required
           />
         </div>
       ))}
