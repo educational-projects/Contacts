@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState, ChangeEvent } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hook';
@@ -13,10 +13,16 @@ interface LocationState {
   };
 }
 
+const initialState = {
+  email: '',
+  password: '',
+};
+
 export function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const [formState, setFormState] = useState(initialState);
 
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
@@ -30,9 +36,18 @@ export function LoginForm(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 
-    dispatch(loginAction({ email: 'admin@yandex.ru', password: '12345' }))
+    dispatch(loginAction(formState))
       .then(unwrapResult)
       .then(() => navigate(fromPage, { replace: true }));
+  };
+
+  const handleChangeForm = ({ target }: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = target;
+
+    setFormState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
   return (
@@ -47,7 +62,14 @@ export function LoginForm(): JSX.Element {
       }) => (
         <div key={id}>
           <label className="visually-hidden" htmlFor={id}>{label}</label>
-          <input className={styles.input} type={type} id={id} placeholder={placeholder} required />
+          <input
+            className={styles.input}
+            type={type}
+            id={id}
+            onChange={handleChangeForm}
+            placeholder={placeholder}
+            required
+          />
         </div>
       ))}
       <button type="submit" className={styles.formButton}>Войти</button>
