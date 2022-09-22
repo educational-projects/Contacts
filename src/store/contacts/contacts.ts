@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { RootState } from '..';
-import { APIRoute, ErrorMessage } from '../../const';
+import { APIQuery, APIRoute, ErrorMessage } from '../../const';
 import { Contact, NewContact } from '../../types/contact';
 
 interface ContactsState {
@@ -30,17 +30,21 @@ interface DeleteContactProps {
   callback: () => void;
 }
 
+interface Query {
+  [APIQuery.FullText]: string
+}
+
 export const fetchContacts = createAsyncThunk<
 Contact[],
-undefined,
+Query | undefined,
 {
   state: RootState;
   extra: AxiosInstance;
 }
   >(
     'contacts/fetchContacts',
-    async (_, { extra: api }) => {
-      const { data } = await api.get<Contact[]>(APIRoute.Contacts);
+    async (arg, { extra: api }) => {
+      const { data } = await api.get<Contact[]>(APIRoute.Contacts, { params: arg });
       return data;
     },
   );

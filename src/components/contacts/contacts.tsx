@@ -4,6 +4,7 @@ import { ContactItem, Modal, AddContact } from '..';
 import { useAppDispatch, useAppSelector } from '../../hook';
 import { ReactComponent as AddIcon } from './Add.svg';
 import { fetchContacts } from '../../store/contacts/contacts';
+import { APIQuery } from '../../const';
 
 export function Contacts():JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ export function Contacts():JSX.Element {
   const contacts = useAppSelector((state) => state.contacts.contacts);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchContacts({ [APIQuery.FullText]: 'Андрей' }));
   }, [dispatch]);
 
   return (
