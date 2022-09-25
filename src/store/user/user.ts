@@ -4,28 +4,7 @@ import { toast } from 'react-toastify';
 import { dropToken, saveToken } from '../../services/token';
 import { RootState } from '..';
 import { APIRoute, AuthorizationStatus, ErrorMessage } from '../../const';
-
-interface User {
-  name?: string;
-  email: string;
-  password: string;
-}
-
-interface BackUser {
-  user: User;
-  accessToken: string;
-}
-
-interface UserState {
-  user: User | null;
-  authorizationStatus: AuthorizationStatus;
-  isLoading: boolean;
-  isError: boolean;
-  isLogoutLoading: boolean;
-  isLogoutError: boolean;
-  isRegistrationLoading: boolean;
-  isRegistrationError: boolean;
-}
+import { BackUser, User, UserState } from '../../types/user';
 
 const initialState: UserState = {
   user: null,

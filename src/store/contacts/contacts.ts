@@ -1,38 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Query } from '@testing-library/react';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { RootState } from '..';
-import { APIQuery, APIRoute, ErrorMessage } from '../../const';
-import { Contact, NewContact } from '../../types/contact';
-
-interface ContactsState {
-  contacts: Contact[];
-  isContactsLoading: boolean;
-  isContactsError: boolean;
-  isSendContactLoading: boolean;
-  isSendContactError: boolean;
-  isDeleteContactLoading: boolean;
-  isDeleteContactError: boolean;
-  isUpdateContactLoading: boolean;
-  isUpdateContactError: boolean;
-}
-
-interface sendNewContact extends NewContact {
-  callback: () => void;
-}
-
-interface UpdateContact extends Contact {
-  callback: () => void;
-}
-
-interface DeleteContactProps {
-  id: number;
-  callback: () => void;
-}
-
-interface Query {
-  [APIQuery.FullText]: string
-}
+import { APIRoute, ErrorMessage } from '../../const';
+import {
+  Contact, ContactsState, DeleteContactProps, sendNewContactProps, UpdateContactProps,
+} from '../../types/contact';
 
 export const fetchContacts = createAsyncThunk<
 Contact[],
@@ -51,7 +25,7 @@ Query | undefined,
 
 export const sendNewContact = createAsyncThunk<
   Contact,
-  sendNewContact,
+  sendNewContactProps,
   {
     state: RootState;
     extra: AxiosInstance;
@@ -61,7 +35,7 @@ export const sendNewContact = createAsyncThunk<
   async (
     {
       name, company, phone, callback,
-    }: sendNewContact,
+    }: sendNewContactProps,
     { extra: api },
   ) => {
     try {
@@ -111,7 +85,7 @@ export const deleteContact = createAsyncThunk<
 
 export const UpdateContact = createAsyncThunk<
   Contact,
-  UpdateContact,
+  UpdateContactProps,
   {
     state: RootState;
     extra: AxiosInstance;
@@ -121,7 +95,7 @@ export const UpdateContact = createAsyncThunk<
   async (
     {
       name, company, phone, id, callback,
-    }: UpdateContact,
+    }: UpdateContactProps,
     { extra: api },
   ) => {
     try {
