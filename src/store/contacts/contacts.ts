@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Query } from '@testing-library/react';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { RootState } from '..';
 import { APIRoute, ErrorMessage } from '../../const';
 import {
-  Contact, ContactsState, DeleteContactProps, sendNewContactProps, UpdateContactProps,
+  Contact, ContactsState, DeleteContactProps, Query, sendNewContactProps, UpdateContactProps,
 } from '../../types/contact';
 
 export const fetchContacts = createAsyncThunk<
