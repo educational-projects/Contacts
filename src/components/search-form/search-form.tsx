@@ -1,15 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { APIQuery, AppRoute } from '../../const';
-import { useAppDispatch } from '../../hook';
-import { fetchContacts } from '../../store/contacts/contacts';
+import React, { ChangeEvent, useState } from 'react';
+import { APIQuery } from '../../const';
 import styles from './search-form.module.scss';
+import { SearchFormProps } from './search-form.props';
 
-export function SearchForm(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get(APIQuery.FullText) || '';
-
+export function SearchForm({ searchQuery, setSearchParams }: SearchFormProps): JSX.Element {
   const [searchForm, setSearchForm] = useState(searchQuery);
 
   const handleSearchChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
@@ -17,7 +11,9 @@ export function SearchForm(): JSX.Element {
 
     if (value) {
       setSearchParams(
-        { [APIQuery.FullText]: value },
+        {
+          [APIQuery.FullText]: value,
+        },
       );
     } else {
       setSearchParams({});
@@ -32,7 +28,7 @@ export function SearchForm(): JSX.Element {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
         <input
           className={styles.input}
-          type="text"
+          type="search"
           value={searchForm}
           onChange={handleSearchChange}
           placeholder="Поиск"
@@ -42,60 +38,3 @@ export function SearchForm(): JSX.Element {
     </div>
   );
 }
-// export function SearchForm(): JSX.Element {
-//   const dispatch = useAppDispatch();
-//   const { search } = useLocation();
-//   const navigate = useNavigate();
-//   const [searchForm, setSearchForm] = useState('');
-
-//   const urlParams = new URLSearchParams(search);
-
-//   const searchParams = urlParams.get(APIQuery.FullText);
-
-//   useEffect(() => {
-//     if (searchParams) {
-//       setSearchForm(searchParams);
-//     }
-//   }, [searchParams]);
-
-//   const debouncedSearchChange = useDebouncedCallback((
-//     { target }: ChangeEvent<HTMLInputElement>,
-//   ): void => {
-//     const { value } = target;
-
-//     setSearchForm(value);
-
-//     if (value) {
-//       navigate({
-//         pathname: AppRoute.Contacts,
-//         search: createSearchParams({
-//           [APIQuery.FullText]: value,
-//         }).toString(),
-//       });
-//     } else {
-//       navigate(AppRoute.Contacts);
-//       dispatch(fetchContacts());
-//     }
-//   }, 800);
-
-//   const handleSearchChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
-//     const { value } = target;
-//     setSearchForm(value);
-//   };
-
-//   return (
-//     <div className={styles.search}>
-//       <form>
-//         <label className="visually-hidden" htmlFor="search">Поиск</label>
-//         <input
-//           className={styles.input}
-//           type="text"
-//           value={searchForm}
-//           onChange={handleSearchChange}
-//           placeholder="Поиск"
-//           id="search"
-//         />
-//       </form>
-//     </div>
-//   );
-// }
