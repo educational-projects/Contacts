@@ -15,10 +15,10 @@ function ContactsPage(): JSX.Element {
   // устанавливаем состояние поиска
   useEffect(() => {
     if (searchQuery) {
-      return setIsSearch(true);
+      setIsSearch(true);
+    } else {
+      setIsSearch(false);
     }
-
-    return setIsSearch(false);
   }, [searchQuery]);
 
   // получаем либо все контакты, либо поиск
