@@ -3,7 +3,10 @@ import { APIQuery } from '../../const';
 import styles from './search-form.module.scss';
 import { SearchFormProps } from './search-form.props';
 
-export function SearchForm({ searchQuery, setSearchParams }: SearchFormProps): JSX.Element {
+export function SearchForm({
+  searchQuery,
+  setSearchParams,
+}: SearchFormProps): JSX.Element {
   const [searchForm, setSearchForm] = useState(searchQuery);
 
   const handleSearchChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
