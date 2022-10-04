@@ -60,5 +60,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "json-server": "^0.17.0",
     "json-server-auth": "^2.1.0"
+  },
+  "engines": {
+    "node": "12"
   }
 }
